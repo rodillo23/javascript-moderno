@@ -1,4 +1,4 @@
-//Accede a valores de los objetos
+//Accede a valores de los objetos con this
 
 const producto = {
     nombre: 'Monitor de 27 pulgadas',
