@@ -1,4 +1,4 @@
-//Eliminar elementos con splice
+//Eliminar elementos con splice, pop, shift
 const carrito = [];
 
 const producto = {
