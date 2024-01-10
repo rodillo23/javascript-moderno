@@ -1,4 +1,4 @@
-//Parametrod en la Arrow functions
+//Parametros en la Arrow functions
 
 const aprendiendo = function(tecnologia, tecnologia2){
     console.log(`Aprendiendo ${tecnologia} y ${tecnologia2}`);
