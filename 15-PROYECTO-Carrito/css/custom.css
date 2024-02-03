@@ -18,6 +18,10 @@ header {
     padding: 20px 0 0 0;
     background: white;
     text-align: center;
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 10;
 }
 @media (min-width: 750px) {
     header {
@@ -40,6 +44,7 @@ ul {
     background-image:url(../img/hero.jpg);
     height: 350px;
     background-size: cover;
+    padding-top: 80px;
 }
 #encabezado {
     margin: 30px 0;
