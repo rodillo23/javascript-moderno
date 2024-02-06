@@ -31,8 +31,23 @@ function leerDatosCurso(curso){
         cantidad: 1
     }
 
-    //se agrega la info curso al array
-    articulosCarrito = [...articulosCarrito, infoCurso]
+    //Revisamos si un elemento ya existe en el carrito
+    const existe = articulosCarrito.some( curso => curso.id === infoCurso.id);
+    if (existe) {
+        //Actualizamos la cantidad
+        const cursos = articulosCarrito.map(curso => {
+            if (curso.id === infoCurso.id) {
+                curso.cantidad++;
+                return curso;
+            }else{
+                return curso;
+            }
+        });
+        articulosCarrito = [...cursos];
+    }else{
+        //se agrega la info curso al array
+        articulosCarrito = [...articulosCarrito, infoCurso]
+    }
 
     console.log(articulosCarrito);
 
