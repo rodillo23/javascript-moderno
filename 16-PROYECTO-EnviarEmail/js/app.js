@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const inputEmail = document.querySelector('#email');
     const inputAsunto = document.querySelector('#asunto');
     const inputMensaje = document.querySelector('#mensaje');
+    
     const formulario = document.querySelector('#formulario');
 
     //Asignar eventos
@@ -11,23 +12,36 @@ document.addEventListener('DOMContentLoaded', function(){
     inputMensaje.addEventListener('blur', validar);
 
     function validar(e){
+        const parent = e.target.parentElement;
+        //validamos que el input no venga vacio.
         if (e.target.value.trim() === '') {
-            mostrarAlerta();
-        }else{
-            console.log('Si hay algo');
-        }
+            mostrarAlerta(`El campo ${e.target.id} es obligatorio.`, parent);
+            return;
+        };
+
+        limpiarAlerta(parent);
     };
 
-    function mostrarAlerta(){
+    function mostrarAlerta(mensaje, referencia){
+        
+        limpiarAlerta(referencia);
+        
         //Generar alerta HTML
         const error = document.createElement('p');
-        error.textContent = 'Hubo un Error';
+        error.textContent = mensaje;
         error.classList.add('bg-red-600', 'text-white', 'p-2', 'text-center');
-
+        
         //inyectar mensaje
         //formulario.innerHTML = error.innerHTML;
-        formulario.appendChild(error); 
+        referencia.appendChild(error); 
     }
-
+    
+    function limpiarAlerta(parent){
+        //Comprueba si ya existe una alerta
+        const alerta = parent.querySelector('.bg-red-600');
+        if (alerta) {
+            alerta.remove();
+        }
+    }
 
 })
