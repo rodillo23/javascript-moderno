@@ -14,22 +14,45 @@ document.addEventListener('DOMContentLoaded', function(){
     const formulario = document.querySelector('#formulario');
     const btnSubmit = document.querySelector('#formulario button[type="submit"]');
     const btnReset = document.querySelector('#formulario button[type="reset"]');
+    const spinner = document.querySelector('#spinner');
 
 
     //Asignar eventos
     inputEmail.addEventListener('blur', validar);
     inputAsunto.addEventListener('blur', validar);
     inputMensaje.addEventListener('blur', validar);
+    formulario.addEventListener('submit', enviarEmail);
+
     btnReset.addEventListener('click', function(e){
         e.preventDefault();
 
-        email.email = '';
-        email.asunto = '';
-        email.mensaje = '';
-        formulario.reset();
-
-        comprobarEmail();
+        resetFormulario();
     })
+
+    function enviarEmail(e){
+        e.preventDefault();
+        
+        spinner.classList.remove('hidden');
+
+        setTimeout(() => {
+            spinner.classList.add('hidden');
+
+            resetFormulario();
+
+            //crear alerta
+            const alertaExito = document.createElement('p');
+            alertaExito.classList.add('bg-green-500', 'text-white', 'p-2', 'text-center', 'rounded-lg', 'font-bold', 'text-sm', 'uppercase');
+            alertaExito.textContent = 'Email enviado con Exito!';
+            formulario.appendChild(alertaExito);
+
+            setTimeout(() => {
+                alertaExito.remove();
+            }, 3000);
+
+        }, 3000);
+
+
+    }
 
     function validar(e){
         
@@ -87,6 +110,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
     function comprobarEmail(){
         console.log(email);
+
         if(Object.values(email).includes('')){
             btnSubmit.classList.add('opacity-50');
             btnSubmit.disabled = true;
@@ -94,6 +118,15 @@ document.addEventListener('DOMContentLoaded', function(){
             btnSubmit.classList.remove('opacity-50');
             btnSubmit.disabled = false;
         }
+    }
+
+    function resetFormulario(){
+        email.email = '';
+        email.asunto = '';
+        email.mensaje = '';
+        formulario.reset();
+
+        comprobarEmail();
     }
 
 })
