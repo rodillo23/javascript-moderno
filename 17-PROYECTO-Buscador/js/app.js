@@ -50,16 +50,18 @@ maximo.addEventListener('change', (e) => {
 });
 
 puertas.addEventListener('change', (e) => {
-    datosBusqueda.puertas = e.target.value;
+    datosBusqueda.puertas = parseInt(e.target.value);
+    filtrarAuto();
 });
 
 transmision.addEventListener('change', (e) => {
     datosBusqueda.transmision = e.target.value;
+    filtrarAuto();
 });
 
 color.addEventListener('change', (e) => {
     datosBusqueda.color = e.target.value;
-    console.log(datosBusqueda);
+    filtrarAuto();
 })
 
 
@@ -68,6 +70,14 @@ color.addEventListener('change', (e) => {
 function mostrarAutos(autos){
     
     limpiarHTML();
+
+    if (autos.length == 0) {
+        const mensaje = document.createElement('p');
+        mensaje.style.backgroundColor = 'red';
+        mensaje.style.color = 'white';
+        mensaje.textContent = 'No se encontraron autos con las caracteristicas señaladas.';
+        resultado.appendChild(mensaje);
+    }
 
     autos.forEach( auto => {
 
@@ -98,7 +108,14 @@ function llenarSelect(){
 //funcion que filtra en base a la busqueda
 function filtrarAuto(){
 
-    const resultado = autos.filter(filtrarMarca).filter(filtrarYear).filter(filtrarMinimo).filter(filtrarMaximo);
+    const resultado = autos
+        .filter(filtrarMarca)
+        .filter(filtrarYear)
+        .filter(filtrarMinimo)
+        .filter(filtrarMaximo)
+        .filter(filtrarPuertas)
+        .filter(filtrarTransmision)
+        .filter(filtrarColor);
     mostrarAutos(resultado);
 };
 
@@ -131,8 +148,30 @@ function filtrarMinimo(auto){
 function filtrarMaximo(auto){
 
     if (datosBusqueda.maximo) {
-        return auto.precio <= datosBusqueda.maximo
+        return auto.precio <= datosBusqueda.maximo;
     }
+
+    return auto;
+};
+
+function filtrarPuertas(auto){
+    if(datosBusqueda.puertas){
+        return auto.puertas === datosBusqueda.puertas;
+    }
+    return auto;
+}
+
+function filtrarTransmision(auto){
+    if (datosBusqueda.transmision) {
+        return auto.transmision === datosBusqueda.transmision;
+    };
+    return auto;
+}
+
+function filtrarColor(auto){
+    if(datosBusqueda.color){
+        return auto.color === datosBusqueda.color;
+    };
 
     return auto;
 }
@@ -142,3 +181,5 @@ function limpiarHTML(){
         resultado.removeChild   (resultado.firstChild);
     }
 };
+
+
