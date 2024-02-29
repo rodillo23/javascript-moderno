@@ -1,6 +1,7 @@
 const selectTipo = document.querySelector('#tipo');
 const selectIdioma = document.querySelector('#idioma');
 const selectYear = document.querySelector('#year');
+//const result = document.querySelector('.result');
 
 const tableBody = document.querySelector('.table tbody');
 
@@ -20,15 +21,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 selectTipo.addEventListener('change', (e) => {
     datosBusqueda[e.target.id] = e.target.value;
+    filtrarPelicula();
 });
 
 selectIdioma.addEventListener('change', (e) => {
     datosBusqueda[e.target.id] = e.target.value;
+    filtrarPelicula();
 });
 
 selectYear.addEventListener('change', (e) => {
-    datosBusqueda[e.target.id] = e.target.value;
-    console.log(datosBusqueda);
+    datosBusqueda[e.target.id] = parseInt(e.target.value);
+    filtrarPelicula();
 });
 
 
@@ -59,8 +62,11 @@ function llenarSelectYear(){
 };
 
 function mostrarPeliculas(movies){
-    const peliculas = movies.filter( movie => movie.kind === 'movie');
-    peliculas.forEach( pelicula => {
+    limpiarHTML();
+
+    //const peliculas = movies.filter( movie => movie.kind === 'movie');
+    
+    movies.forEach( pelicula => {
         const tr = document.createElement('tr');
         
         const td = document.createElement('td');
@@ -82,4 +88,38 @@ function mostrarPeliculas(movies){
         tableBody.appendChild(tr);
 
     })
+};
+
+function filtrarPelicula(){
+    const resultado = shows.filter(filtrarTipo).filter(filtrarIdioma).filter(filtrarYear);
+    mostrarPeliculas(resultado);
+};
+
+function filtrarTipo(show){
+    if (datosBusqueda.tipo) {
+        return show.kind === datosBusqueda.tipo;
+    }
+    return show;
+};
+
+function filtrarIdioma(show){
+    if (datosBusqueda.idioma) {
+        return show.original_language === datosBusqueda.idioma;
+    };
+
+    return show;
+};
+
+function filtrarYear(show){
+    if (datosBusqueda.year) {
+        return show.year === datosBusqueda.year;
+    };
+
+    return show;
+}
+
+function limpiarHTML(){
+    while (tableBody.firstChild) {
+        tableBody.removeChild(tableBody.firstChild);
+    };
 }

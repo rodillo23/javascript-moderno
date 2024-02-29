@@ -47,7 +47,7 @@ body{
 select{
     width: 200px;
     padding: 8px;
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
 table {
