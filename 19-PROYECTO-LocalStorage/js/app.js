@@ -6,7 +6,13 @@ let tweets = [];
 //event listeners
 eventListeners();
 function eventListeners(){
-    formulario.addEventListener('submit', agregarTweet)
+    
+    formulario.addEventListener('submit', agregarTweet);
+
+    document.addEventListener('DOMContentLoaded', () => {
+        tweets = JSON.parse(localStorage.getItem('tweets')) || [];
+        crearHTML();
+    })
 };
 
 
@@ -55,13 +61,35 @@ function crearHTML(){
     limpiarHTML();
 
     if (tweets.length > 0) {
+
         tweets.forEach( tweet => {
+            const btnEliminar = document.createElement('a');
+            btnEliminar.classList.add('borrar-tweet');
+            btnEliminar.textContent = 'x'
+            
             const li = document.createElement('li');
             li.textContent = tweet.tweet;
+            li.appendChild(btnEliminar);
+
+            btnEliminar.onclick = () => {
+                eliminarTweet(tweet.id);
+            }
+
             lista.appendChild(li);
         })
-    }
+    };
+
+    sincronizarStorage();
 };
+
+function eliminarTweet(id){
+    tweets = tweets.filter( tweet => tweet.id !== id);
+    crearHTML();
+}
+
+function sincronizarStorage(){
+    localStorage.setItem('tweets', JSON.stringify(tweets));
+}
 
 function limpiarHTML(){
     while(lista.firstChild){
