@@ -13,12 +13,14 @@ function eventListeners() {
 
 //Clases
 class Presupuesto{
+    //Al instanciar solo recibimos el presupuesto
     constructor(presupuesto){
         this.presupuesto = Number(presupuesto);
         this.restante = Number(presupuesto);
         this.gastos = [];
     };
 
+    //Agregamos gasto al array y calculamos el restante
     crearGasto(gasto){
         this.gastos = [...this.gastos, gasto];
         this.calcularRestante();
@@ -29,6 +31,11 @@ class Presupuesto{
         this.restante = this.presupuesto - gastado;
 
         ui.actualizarRestante();
+    };
+
+    eliminarGasto(id){
+        this.gastos = this.gastos.filter( gasto => gasto.id !== id);
+        this.calcularRestante();
     }
 };
 
@@ -63,7 +70,7 @@ class UI{
         }, 3000);
     };
 
-    agregarGastoListado(gastos){
+    mostrarGastos(gastos){
 
         this.limpiarHTML();
 
@@ -78,7 +85,12 @@ class UI{
             //boton de borrar
             const btnBorrar = document.createElement('button');
             btnBorrar.classList.add('btn', 'btn-danger', 'borrar-gasto');
-            btnBorrar.innerHTML = 'Borrar &times'
+            btnBorrar.innerHTML = 'Borrar &times';
+
+            btnBorrar.onclick = () => {
+                eliminarGasto(id);
+            };
+
             nuevoGasto.appendChild(btnBorrar);
 
             gastoListado.appendChild(nuevoGasto);
@@ -107,6 +119,9 @@ class UI{
         }else if((presupuesto / 2) > restante){
             restanteDiv.classList.remove('alert-success');
             restanteDiv.classList.add('alert-warning');
+        }else{
+            restanteDiv.classList.remove('alert-danger', 'alert-warning');
+            restanteDiv.classList.add('alert-success');
         };
 
         if (restante <= 0) {
@@ -164,8 +179,8 @@ function agregarGasto(e){
     ui.imprimirAlerta('Se añadio el gasto exitosamente.');
 
     //imprimir los gastos
-    const {gastos} = presupuesto
-    ui.agregarGastoListado(gastos);
+    const {gastos} = presupuesto;
+    ui.mostrarGastos(gastos);
 
     //comprobar presupuesto
     ui.comprobarPresupuesto(presupuesto);
@@ -173,3 +188,14 @@ function agregarGasto(e){
     //Reseteamos el formulario
     formulario.reset();
 };
+
+function eliminarGasto(id){
+    presupuesto.eliminarGasto(id);
+
+    const {gastos} = presupuesto;
+    ui.mostrarGastos(gastos);
+
+    //actualizar restante se llama en calcular restante
+    
+    ui.comprobarPresupuesto(presupuesto);
+}
