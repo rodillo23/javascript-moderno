@@ -1,3 +1,10 @@
+:root{
+    --primary-color: #222831;
+    --secondary-color: #31363F;
+    --font-color: #76ABAE;
+    --background: #EEEEEE;
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -13,7 +20,7 @@
 .container__sidebar{
     padding: 20px 10px;
     width: 200px;
-    background: #222831;
+    background: var(--primary-color);
     box-shadow: 8px 0 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -42,12 +49,12 @@
 
 .sidebar__list .list__item a{
     text-decoration: none;
-    color: white;
+    color: var(--font-color);
 }
 
 .container__main{
     width: 100%;
-    background-color: #EEEEEE;
+    background-color: var(--background);
     z-index: -1;
     padding: 20px;
 }
