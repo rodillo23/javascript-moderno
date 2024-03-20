@@ -1,0 +1,167 @@
+:root{
+    --primary-color: #222831;
+    --secondary-color: #31363F;
+    --font-color: #76ABAE;
+    --font: #EEEEEE;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: "Ubuntu Mono", monospace;
+}
+
+.app-container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+}
+
+.container__sidebar{
+    padding-block: 20px;
+    width: 220px;
+    background: var(--primary-color);
+    box-shadow: 8px 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 5;
+}
+
+.sidebar__imageContainer{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    background-color: white;
+}
+
+.sidebar__imageContainer img{
+    width: 110px;
+    transition: 1s ease;
+}
+
+.sidebar__imageContainer img:hover{
+    transform: rotate(360deg);
+}
+
+.sidebar__list{
+    margin-top: 20px;
+    list-style: none;
+}
+
+.sidebar__list .list__item{
+    padding-block: 10px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.sidebar__list .list__item:hover{
+    border-right: 5px solid var(--font-color);
+}
+
+.sidebar__list .list__item a{
+    text-decoration: none;
+    color: var(--font-color);
+}
+
+.container__main{
+    width: 100%;
+    background-color: var(--secondary-color);
+    padding: 20px;
+}
+
+.container__main h1{
+    color: var(--font);
+}
+
+.container__main .main__content{
+    text-align: center;
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-around;
+    color: var(--font-color);
+}
+
+.main__content .content{
+    width: 400px;
+}
+
+.main__content .content h3{
+    margin-bottom: 30px;
+}
+
+.content__formPresupuesto{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content__formPresupuesto #presupuesto{
+    width: 70%;
+    padding: 10px 5px;
+    border-radius: 5px;
+    border: none;
+    margin: 0;
+}
+
+.content__formPresupuesto #presupuesto:focus{
+    outline: none;
+}
+
+
+.content__formPresupuesto .btnSubmit,
+.content__formGasto .btnGasto{
+    width: 25%;
+    background-color: var(--font-color);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 5px;
+    color: var(--font);
+}
+
+.content__presupuestoContainer{
+    margin-top: 50px;
+    margin-bottom: 50px;
+    text-align: start;
+}
+
+.content__presupuestoContainer span,
+.content__restanteContainer span{
+    font-size: 60px;
+    font-weight: bold;
+    color: var(--font);
+}
+
+.content__restanteContainer{
+    text-align: start;
+}
+
+
+.content__formGasto{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.content input[type="text"]{
+    padding: 10px 5px;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.content input[type="text"]:focus{
+    outline: none;
+}
+
+.content__formGasto .btnGasto{
+    align-self: flex-end;
+    margin-top: 5px;
+}
+

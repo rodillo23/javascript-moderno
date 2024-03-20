@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Gasto semanal</title>
+</head>
+<body>
+
+    <div class="app-container">
+
+
+        <div class="container__sidebar">
+            <div class="sidebar__imageContainer">
+                <img src="img/logo.png" alt="" class="sidebar__image">
+            </div>
+            
+            <ul class="sidebar__list">
+                <li class="list__item">
+                    <a href="index.html">Inicio</a>
+                </li>
+                <li class="list__item">
+                    <a href="agregar-gasto.html">Nuevo Gasto</a>
+                </li>
+            </ul>
+        </div>
+        
+        <main class="container__main">
+            <h1>Agregar Presupuesto Nuevo</h1>
+
+            <section class="main__content">
+
+                <article class="content">
+                    <h3>Establecer Presupuesto</h3>
+
+                    <form class="content__formPresupuesto">
+                        <input type="text" name="presupuesto" id="presupuesto" placeholder="Introduce tu presupuesto">
+                        <input class="btnSubmit" type="button" value="Enviar">
+                    </form>
+
+                    <div class="content__presupuestoContainer">
+
+                        <h2>Presupuesto</h2>
+                        <p>$ <span>2680</span></p>
+
+                    </div>
+
+                    <div class="content__restanteContainer">
+
+                        <h2>Restante</h2>
+                        <p>$ <span>1000</span></p>
+
+                    </div>
+
+                    
+
+                    
+
+                </article>
+                
+                <article class="content">
+                    <h3>Agregar Gasto</h3>
+
+                    <form action="#" class="content__formGasto">
+                        <input type="text" name="nombreGasto" placeholder="Nuevo Gasto">
+                        <input type="text" name="cantidadGasto" placeholder="Cantidad">
+                        <input type="submit" value="Crear Gasto" class="btnGasto">
+                    </form>
+                </article>
+                
+                <article class="content">
+                    <h3>Gastos</h3>
+                </article>
+            </section>
+        </main>    
+
+    </div>
+
+    <script src="js/app.js"></script>
+    
+</body>
+</html>
+
+<!--  -->
