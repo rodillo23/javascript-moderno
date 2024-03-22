@@ -1,6 +1,33 @@
-const btnSubmit = document.querySelector('.btnSubmit');
+const formPresupuesto = document.querySelector('.content__formPresupuesto');
+const presupuestoInput = document.querySelector('#presupuesto');
 
-btnSubmit.addEventListener('click', (e)=>{
+
+//Eventos
+eventListeners();
+function eventListeners(){
+    formPresupuesto.addEventListener('submit', agregarPresupuesto);
+}
+
+//clases
+class Presupuesto{
+    constructor(presupuesto){
+        
+        this.presupuesto = presupuesto;
+        this.restante = presupuesto;
+    }
+}
+
+//funciones
+function agregarPresupuesto(e){
     e.preventDefault();
-    console.log('Presionado');
-})
+
+    const presupuesto = parseFloat(presupuestoInput.value);
+
+    if (presupuesto === '' || isNaN(presupuesto) || presupuesto <= 0) {
+        console.log('Introduce un presupuesto válido');
+        formPresupuesto.reset();
+        return;
+    };
+
+    console.log('Agregando Presupuesto');
+}
