@@ -31,9 +31,35 @@
         
         <main class="container__main">
             <h1>Control de Gasto Semanal</h1>
+
+            <article class="content">
+                <h3>Establecer Presupuesto</h3>
+
+                <form action="#" class="content__formPresupuesto">
+                    <input type="text" name="presupuesto" id="presupuesto" placeholder="Introduce tu presupuesto">
+                    <input class="btnSubmit" type="submit" value="Enviar">
+                </form>
+
+                <div class="content__presupuestoContainer">
+
+                    <h2>Presupuesto</h2>
+                    <p class="presupuestoCantidad">$ <span></span></p>
+
+                </div>
+
+                <div class="content__restanteContainer">
+
+                    <h2>Restante</h2>
+                    <p class="restanteCantidad">$ <span></span></p>
+
+                </div>
+
+            </article>
         </main>    
 
     </div>
+
+    <script src="js/app.js"></script>
     
 </body>
 </html>

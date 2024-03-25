@@ -1,6 +1,8 @@
 const formPresupuesto = document.querySelector('.content__formPresupuesto');
 const presupuestoInput = document.querySelector('#presupuesto');
+const btnSubmit = document.querySelector('.btnSubmit');
 
+const presupuestos = []; 
 
 //Eventos
 eventListeners();
@@ -9,13 +11,15 @@ function eventListeners(){
 }
 
 //clases
-class Presupuesto{
-    constructor(presupuesto){
-        
-        this.presupuesto = presupuesto;
-        this.restante = presupuesto;
+class UI {
+    mostrarPresupuesto(presupuestoObj){
+        const {presupuesto, restante} = presupuestoObj
+        document.querySelector('.presupuestoCantidad span').textContent = presupuesto;
+        document.querySelector('.restanteCantidad span').textContent = restante;
     }
 }
+
+const ui = new UI();
 
 //funciones
 function agregarPresupuesto(e){
@@ -29,5 +33,20 @@ function agregarPresupuesto(e){
         return;
     };
 
-    console.log('Agregando Presupuesto');
+    const nuevoPresupuesto = {
+        id: Date.now(),
+        presupuesto,
+        restante: presupuesto,
+        gastos: []
+    };
+
+    ui.mostrarPresupuesto(nuevoPresupuesto);
+
+    formPresupuesto.reset();
+
+    btnSubmit.setAttribute('disabled', 'true');
+    
+    
+
+    console.log(nuevoPresupuesto);
 }
