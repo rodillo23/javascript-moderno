@@ -6,6 +6,7 @@ const fechaInput = document.querySelector('#fecha');
 const sintomasInput = document.querySelector('#sintomas');
 
 const formulario = document.querySelector('#formulario-cita');
+const contenedorCitas = document.querySelector('#citas');
 
 //objeto de citas
 const citaObj = {
@@ -22,28 +23,9 @@ propietarioInput.addEventListener('change', datosCita);
 emailInput.addEventListener('change', datosCita);
 fechaInput.addEventListener('change', datosCita);
 sintomasInput.addEventListener('change', datosCita);
-
 formulario.addEventListener('submit', submitCita);
 
-//funciones
-function datosCita(e){
-    citaObj[e.target.name] = e.target.value;  
-};
-
-function submitCita(e){
-    e.preventDefault();
-    //validamos que los campos no esten en blanco
-    if (Object.values(citaObj).some(valor => valor.trim() === '')) {
-        new Notificacion({
-            mensaje:'Todos los campos son obligatorios!', 
-            tipo:'error'
-        });
-        return;
-    };
-
-    //Paso la validacion
-}
-
+//clases
 class Notificacion {
 
     constructor({mensaje, tipo}){
@@ -55,8 +37,7 @@ class Notificacion {
     mostrar(){
         //eliminar notificaciones previas
         const alertaPrevia = document.querySelector('alerta');
-        //encadenamiento opcional
-        alertaPrevia?.remove();
+        alertaPrevia?.remove(); // -> encadenamiento opcional
 
         //crear la notificacion
         const alerta = document.createElement('div');
@@ -75,5 +56,97 @@ class Notificacion {
         }, 3000);
     }
 }
+
+class AdminCitas{
+    constructor(){
+        this.citas = []
+    }
+
+    agregar(cita){  
+        this.citas = [...this.citas, cita]
+
+        this.mostrar();
+    }
+
+    mostrar(){
+        //limpiar HTML previo
+        while(contenedorCitas.firstChild){
+            contenedorCitas.removeChild(contenedorCitas.firstChild);
+        };
+
+        //generar citas 
+        this.citas.forEach( cita => {
+            const divCita = document.createElement('DIV');
+            divCita.classList.add('mx-5', 'my-10', 'bg-white', 'shadow-md', 'px-5', 'py-10', 'rounded-xl');
+
+            const paciente = document.createElement('P');
+            paciente.classList.add('font-normal', 'mb-3', 'text-gray-700', 'normal-case');
+            paciente.innerHTML = `<span class="font-bold uppercase">Paciente: </span>${cita.paciente}`;
+
+            const propietario = document.createElement('P');
+            propietario.classList.add('font-normal', 'mb-3', 'text-gray-700', 'normal-case');
+            propietario.innerHTML = `<span class="font-bold uppercase">Propietario: </span>${cita.propietario}`;
+
+            const email = document.createElement('P');
+            email.classList.add('font-normal', 'mb-3', 'text-gray-700', 'normal-case');
+            email.innerHTML = `<span class="font-bold uppercase">Email: </span>${cita.email}`;
+
+            const fecha = document.createElement('P');
+            fecha.classList.add('font-normal', 'mb-3', 'text-gray-700', 'normal-case');
+            fecha.innerHTML = `<span class="font-bold uppercase">Fecha: </span>${cita.fecha}`;
+
+            const sintomas = document.createElement('P');
+            sintomas.classList.add('font-normal', 'mb-3', 'text-gray-700', 'normal-case');
+            sintomas.innerHTML = `<span class="font-bold uppercase">Sintomas: </span>${cita.sintomas}`;
+
+            divCita.appendChild(paciente);
+            divCita.appendChild(propietario);
+            divCita.appendChild(email);
+            divCita.appendChild(fecha);
+            divCita.appendChild(sintomas);
+
+            contenedorCitas.appendChild(divCita);
+        })
+    }
+
+
+}
+
+const citas = new AdminCitas();
+
+//funciones
+function datosCita(e){
+    citaObj[e.target.name] = e.target.value;  
+};
+
+function submitCita(e){
+    e.preventDefault();
+    //validamos que los campos no esten en blanco
+    if (Object.values(citaObj).some(valor => valor.trim() === '')) {
+        new Notificacion({
+            mensaje:'Todos los campos son obligatorios!', 
+            tipo:'error'
+        });
+        return;
+    };
+
+    //Paso la validacion
+    citas.agregar(citaObj);
+
+    formulario.reset();
+    reiniciarObjetoCita();
+};
+
+function reiniciarObjetoCita(){
+    Object.assign(citaObj, {
+        paciente: '',
+        propietario: '',
+        email: '',
+        fecha: '',
+        sintomas: ''  
+    })
+}
+
+
 
 
