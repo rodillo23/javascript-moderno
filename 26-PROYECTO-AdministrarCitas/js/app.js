@@ -6,6 +6,7 @@ const fechaInput = document.querySelector('#fecha');
 const sintomasInput = document.querySelector('#sintomas');
 
 const formulario = document.querySelector('#formulario-cita');
+const formularioInput = document.querySelector('#formulario-cita input[type="submit"]')
 const contenedorCitas = document.querySelector('#citas');
 
 let editando = false;
@@ -69,6 +70,11 @@ class AdminCitas{
     agregar(cita){  
         this.citas = [...this.citas, cita]
 
+        this.mostrar();
+    }
+
+    actualizar(citaActualizada){
+        this.citas = this.citas.map( cita => cita.id === citaActualizada.id ? citaActualizada : cita);
         this.mostrar();
     }
 
@@ -157,7 +163,11 @@ function submitCita(e){
     //Paso la validacion
     
     if (editando) {
-        console.log('Editando cita..');
+        citas.actualizar({...citaObj});
+        new Notificacion({
+            mensaje: 'Registro Actualizado con Exito',
+            tipo: 'exito'
+        })
         editando = false;
     }else{
         citas.agregar({...citaObj});
@@ -169,6 +179,7 @@ function submitCita(e){
 
     formulario.reset();
     reiniciarObjetoCita();
+    formularioInput.value = 'Registrar Paciente'
 };
 
 function reiniciarObjetoCita(){
@@ -198,7 +209,7 @@ function cargarEdicion(cita){
     sintomasInput.value = sintomas;
 
     editando = true;
-    
+    formularioInput.value = 'Actualizar Registro'
 }
 
 
